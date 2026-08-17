@@ -1,0 +1,12 @@
+﻿.env
+.env.*
+!.env.example
+*.log
+cookies.json
+*_token*
+secrets*
+CapCutAPI/
+__pycache__/
+*.pyc
+venv*/
+
