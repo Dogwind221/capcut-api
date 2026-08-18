@@ -15,6 +15,37 @@ description: CapCut/剪映草稿生成 API（sun-guannan/CapCutAPI）的安装�
 - 剪映更新大版本可能导致旧草稿 json 不兼容打不开——**务必备份草稿目录**
 - 本机环境：Python 3.12.10 / FFmpeg 9.0 / Git 2.55 / 剪映专业版（均已在 PATH）
 
+## 触发（DSH 场景）
+
+- 用户提到 **CapCut / 剪映 / 草稿 / dfd_ / 剪映草稿 / 视频草稿 / 剪映自动出片 / CapCutAPI**
+- 用户给出剪映草稿路径或 `dfd_xxx` 文件夹，要求分析/修改
+- 用户要求「用 API 生成剪映草稿」「批量建草稿」
+- 拖入剪映草稿文件（zip/文件夹）→ file-intake 可路由到本 skill 分析草稿结构
+
+## DSH 使用（服务管理）
+
+服务**默认常驻**（手动启动后保持运行）；新会话使用前先探测：
+
+```powershell
+# 服务是否在跑（端口 9001）
+$conn = Get-NetTCPConnection -LocalPort 9001 -State Listen -ErrorAction SilentlyContinue
+if ($conn) { "运行中 pid=$($conn.OwningProcess)" } else { "未运行" }
+
+# 未运行则启动（后台、隐藏窗口）
+Start-Process 'F:\dsh\capcut-api\CapCutAPI\venv-capcut\Scripts\python.exe' `
+  -ArgumentList 'capcut_server.py' -WorkingDirectory 'F:\dsh\capcut-api\CapCutAPI' `
+  -WindowStyle Hidden -RedirectStandardOutput 'F:\dsh\capcut-api\server.log' `
+  -RedirectStandardError 'F:\dsh\capcut-api\server.err.log'
+```
+
+## DSH 会话内标准工作流
+
+1. **探测服务**（见上）；未运行 → 启动，等 3-5 秒
+2. **创建草稿**：`POST /create_draft`（width/height/fps；草稿暂存内存，返回 `draft_id`）
+3. **落盘**：`POST /save_draft`（`draft_id` → 生成 `dfd_xxx` 文件夹，位于 `F:\dsh\capcut-api\CapCutAPI\`）
+4. **复制进剪映**：`Copy-Item dfd_xxx → C:\Users\ASUS\Videos\JianyingPro\User Data\Projects\com.lveditor.draft\`
+5. **打开剪映确认**：`Start-Process 'D:\剪映\JianyingPro\JianyingPro.exe'` → 草稿列表应出现 → **提醒用户手动导出**
+
 ## 安装（一次性）
 
 ```bash
@@ -68,6 +99,7 @@ curl -X POST http://127.0.0.1:9001/create_draft ^
 - 草稿不会自动同步进剪映目录 → 必须手动复制
 - 剪映大版本更新 → 旧草稿 json 不兼容 → 提前备份
 - 代码拉取走代理：`$env:HTTPS_PROXY='http://127.0.0.1:7897'`
+- DSH 会话内服务未运行会直接报连接错误 → 先按「DSH 使用」启动再调 API
 
 ## 本机部署位置（2026-08-17 已实测部署）
 
