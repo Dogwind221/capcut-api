@@ -50,3 +50,12 @@ Copy-Item "dfd_cat_xxx" "C:\Users\<用户名>\Videos\JianyingPro\User Data\Proje
 - 可选：剪映会员（高级特效/导出，约 ¥25/月）；云服务器 24h 在线（约 ¥30-100/月）
 
 完整说明见 [SKILL.md](./SKILL.md)。
+
+## 核心优点
+
+- **本地部署 ¥0**：开源项目 + Python/FFmpeg/Git 免费 + 剪映个人版免费，无服务器、无订阅
+- **程序化生成标准剪映草稿**：API 一键产出完整 `dfd_xxx` 草稿结构（draft_content.json / Timelines / Resources 等 20+ 文件），剪映打开即见
+- **完整工作流实测**：create_draft → save_draft → 复制草稿目录 → 剪映识别，全链路验证通过
+- **双模式**：HTTP API（REST）与 MCP（AI Agent 直调）两种接入方式
+- **双环境适配**：国内剪映（`is_capcut_env: false` / jianying_pro_10）与海外 CapCut 均可
+- **配套排障手册**：SKILL.md 收录常见踩坑（虚拟环境/FFmpeg PATH/版本兼容/草稿备份）与本机部署记录
