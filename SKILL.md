@@ -1,6 +1,6 @@
 ---
 name: capcut-api
-description: CapCut/剪映草稿生成 API（sun-guannan/CapCutAPI）的安装、启动、调用与排障；内置《2026最新剪映专业版全套教程》27集蒸馏的剪辑思维库与「需求→API 决策链」，能把用户的剪辑需求（卡点/转场/音乐/字幕/调色）准确转化为 capcut-api 调用序列。当用户提到 CapCut、剪映、草稿、dfd_、capcut_server、mcp_server、CapCutAPI、生成剪映草稿、视频草稿 API、剪映自动出片、剪辑思维、卡点剪辑、转场、字幕、BGM时触发。
+description: CapCut/剪映草稿生成 API（sun-guannan/CapCutAPI）的安装、启动、调用与排障；内置剪辑思维库与「需求→API 决策链」，能把用户的剪辑需求（卡点/转场/音乐/字幕/调色）准确转化为 capcut-api 调用序列。当用户提到 CapCut、剪映、草稿、dfd_、capcut_server、mcp_server、CapCutAPI、生成剪映草稿、视频草稿 API、剪映自动出片、剪辑思维、卡点剪辑、转场、字幕、BGM时触发。
 ---
 
 # CapCut API（剪映草稿生成）
